@@ -1,10 +1,10 @@
 import chess
-import pynnue
+import nnue_parser
 
-pynnue.init_nnue("2020.nnue")
+nnue_parser.init_nnue_py("final.jnn")
 
 def evaluate(board):
-    return pynnue.eval_nnue(board.fen())
+    return nnue_parser.eval_nnue_py(board.fen())
 
 def minimax(board, depth, maximizing):
     if depth == 0 or board.is_game_over():
