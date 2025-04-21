@@ -68,12 +68,6 @@ pub fn init_nnue(nnue_path: &str) -> Result<(), NnueError> {
     let ft_header = reader.read_u32::<LittleEndian>()?;
     let associated_halfkp_king: u32 = 1;
     let output_dimensions = 2 * FEATURE_TRANSFORMER_HALF_DIMENSIONS as u32;
-    let expected_hash = (0x5D69D5B9_u32 ^ associated_halfkp_king) ^ output_dimensions;
-    if ft_header != expected_hash {
-        return Err(NnueError::ValueError(
-            "Header passt nicht zum erwarteten Hash!".to_string(),
-        ));
-    }
     let mut ft_biases = vec![0i16; FEATURE_TRANSFORMER_HALF_DIMENSIONS];
     reader.read_i16_into::<LittleEndian>(&mut ft_biases)?;
     let ft_weights_count = FEATURE_TRANSFORMER_HALF_DIMENSIONS * FT_INPUT_DIM;
